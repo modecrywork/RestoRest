@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import {APP_CONFIG} from "configs/appConfig";
+const {uri,dbName} = APP_CONFIG.dbConfig;
+const dbUri = `${uri}${dbName}`;
 
-mongoose.connect("mongodb://127.0.0.1:27017/Restorest",{
+mongoose.connect(dbUri,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).catch(error=>console.error(error));

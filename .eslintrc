@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "prettier",
+    "standard"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "import/newline-after-import": "error",
+    "import/no-named-as-default": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "sibling",
+          "parent",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["components", "./packages/awr-app/components"],
+          ["constants", "./packages/awr-app/constants"],
+          ["core", "./packages/awr-app/core"],
+          ["utils", "./packages/awr-app/core/utils"],
+          ["validation", "./packages/awr-app/validation"],
+          ["theme", "./packages/awr-app/core/theme"],
+          ["services", "./packages/awr-app/services"],
+          ["sources", "./packages/awr-app/sources"],
+          ["graphQL", "./packages/awr-app/graphql"],
+          ["static", "./packages/awr-app/static"]
+        ],
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  }
+}

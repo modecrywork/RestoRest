@@ -1,4 +1,4 @@
-import { schemaComposer } from 'graphql-compose';
+import { schemaComposer } from "graphql-compose";
 // schemas compose
 import "./Cat";
 import "./Dog";

@@ -1,24 +1,25 @@
 import express from "express";
 import next from "next";
-import {APP_CONFIG } from "configs/appConfig";
+import { APP_CONFIG } from "configs/appConfig";
 
-/*Base server structure*/
-const ssrApp = next({dev:APP_CONFIG.mode, dir: "./client"});
+/* Base server structure */
+const ssrApp = next({ dev: APP_CONFIG.mode, dir: "./client" });
 const handle = ssrApp.getRequestHandler();
-const isStart = process.START_MODULE;
-isStart && startServer();
 
-ssrApp.prepare().then(() => {
+ssrApp
+  .prepare()
+  .then(() => {
     const server = express();
     server.get("*", (req, res) => {
-        handle(req, res);
+      handle(req, res);
     });
 
     server.listen(APP_CONFIG.clientPort, (err) => {
-        if (err) throw err
-        console.log(`> Ready on http://localhost:${APP_CONFIG.clientPort}`);
-    })
-}).catch((ex) => {
+      if (err) throw err;
+      console.log(`> Ready on http://localhost:${APP_CONFIG.clientPort}`);
+    });
+  })
+  .catch(ex => {
     console.error(ex.stack);
     process.exit(1);
-});
+  });

@@ -1,6 +1,6 @@
-import graphqlHTTP from "express-graphql";
+import { ApolloServer }  from 'apollo-server-express';
 import graphqlShchema from "./schemas";
 
-const graphqlServer = graphqlHTTP({schema: graphqlShchema});
+const apolloServer = new ApolloServer({schema: graphqlShchema});
 
-export default graphqlServer;
+export default apolloServer;

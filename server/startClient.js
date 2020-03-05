@@ -16,7 +16,7 @@ ssrApp
 
     server.listen(APP_CONFIG.clientPort, (err) => {
       if (err) throw err;
-      console.log(`> Ready on http://localhost:${APP_CONFIG.clientPort}`);
+      console.log(`> Client ready on http://localhost:${APP_CONFIG.clientPort}`);
     });
   })
   .catch(ex => {

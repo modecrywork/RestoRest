@@ -1,9 +1,9 @@
 const exportPathMap = function () {
-    return {
-        '/': { page: '/' }
-    }
+  return {
+    "/": { page: "/" }
+  };
 }
 
 module.exports = {
     exportPathMap
-}
+};

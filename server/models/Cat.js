@@ -1,14 +1,12 @@
 import mongoose from "db";
-import { composeWithMongoose } from 'graphql-compose-mongoose';
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const CatSchema = new Schema({
-    name:String,
-    age:Number
-})
+  name: String,
+  age: Number
+});
 
-const Cat = mongoose.model("Cat",CatSchema, "cats");
-const CatTC = composeWithMongoose(Cat, {});
+const CatModel = mongoose.model("Cat", CatSchema, "cats");
 
-export default CatTC;
+export default CatModel;

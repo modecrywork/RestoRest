@@ -1,9 +1,10 @@
-const exportPathMap = function () {
+const exportPathMap = function() {
   return {
-    "/": { page: "/" }
+    "/": { page: "/" },
+    "/auth": { page: "/auth" }
   };
-}
+};
 
 module.exports = {
-    exportPathMap
+  exportPathMap
 };

@@ -8,7 +8,8 @@
         "db": "./server/db",
         "models": "./server/models",
         "graphql-container": "./server/graphql",
-        "configs": "./server/configs"
+        "configs": "./server/configs",
+        "utils": "./server/utils"
       }
     }]
   ]

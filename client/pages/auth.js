@@ -16,16 +16,25 @@ const client = new ApolloClient({
 });
 
 const Form = () => {
-  const [data, setData] = useState({ username: "", password: "" });
+  const [data, setData] = useState({ username: "", password: "", error: "" });
   const [handleAuth, { data: userData }] = useMutation(AUTH);
 
   const handleChangedata = name => e => {
     setData({ ...data, [name]: e.target.value });
   };
 
+  const chagneErorr = error => {
+    setData({ ...data, error: error });
+  };
+
   const authUser = async () => {
     const { username, password } = data;
-    return await handleAuth({ variables: { username, password } });
+    try {
+      await handleAuth({ variables: { username, password } });
+      chagneErorr("");
+    } catch (e) {
+      chagneErorr("Данные указанны неккоректно!");
+    }
   };
 
   const handleLogin = e => {
@@ -49,6 +58,7 @@ const Form = () => {
       />
       <br />
       <button onClick={handleLogin}>login</button>
+      {data.error}
     </form>
   );
 };

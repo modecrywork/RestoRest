@@ -1,23 +1,28 @@
+// configs
 import { APP_CONFIG } from "configs/appConfig";
 import mongoose from "db"; // connect to db
-import passportConfig from "configs/passport.config";
+import passportConfig from "configs/passport.config"; // passport config
 
+// main
 import express from "express";
 import next from "next";
 import cors from "cors";
 import session from "express-session";
 import passport from "passport";
-import fileStore from "session-file-store";
+import redis from "redis";
+import ConnectRedis from "connect-redis";
 
 import apolloServer from "./graphql";
 import authMiddleware from "./middlewares/auth";
 
+/* Sessions */
+const RedisStore = ConnectRedis(session);
+const redisClient = redis.createClient({ url: APP_CONFIG.redisUrl });
 
 /* Base server structure */
 const ssrApp = next({ dev: APP_CONFIG.mode, dir: "./client" });
 const handle = ssrApp.getRequestHandler();
 
-const FileStore = fileStore(session);
 ssrApp
   .prepare()
   .then(() => {
@@ -28,7 +33,7 @@ ssrApp
     app.use(
       session({
         secret: "magic_kebab",
-        store: new FileStore(),
+        store: new RedisStore({ client: redisClient }),
         cookie: {
           path: "/",
           httpOnly: true,
@@ -41,9 +46,14 @@ ssrApp
     app.use(passport.initialize());
     app.use(passport.session());
     apolloServer.applyMiddleware({ app });
-    app.all(["/"], authMiddleware);
-    app.get("*", handle);
 
+    app.get("/auth", (req, res, next) => {
+      if (req?.isAuthenticated()) res.redirect("/");
+      next();
+    });
+    app.all(["/"], authMiddleware);
+
+    app.get("*", handle);
     app.listen(APP_CONFIG.serverPort, err => {
       if (err) throw err;
       console.log(

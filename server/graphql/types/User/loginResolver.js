@@ -7,7 +7,7 @@ const loginResolver = {
       username,
       password
     });
-    context.login(user);
+    await context.login(user);
     return { user };
   }
 };

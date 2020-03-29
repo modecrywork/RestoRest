@@ -1,6 +1,6 @@
 // components
-import Header from "components/header/";
-import Sidebar from "components/sidebar/";
+import Header from "./components/header/";
+import Sidebar from "./components/sidebar/";
 
 import React, { Component } from "react";
 

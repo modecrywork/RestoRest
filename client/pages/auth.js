@@ -1,7 +1,8 @@
-import withApollo from "enhancers/withApollo";
-import AUTH_USER from "graphQL/auth";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
+import AUTH_USER from "graphQL/auth";
+// containers
+import AuthContainer from "components/containers/auth/";
 
 const Form = () => {
   const [data, setData] = useState({ username: "", password: "", error: "" });
@@ -51,8 +52,8 @@ const Form = () => {
   );
 };
 
-const Index = () => {
-  return <Form />;
+const Auth = () => {
+  return <AuthContainer />;
 };
 
-export default withApollo(Index);
+export default Auth;

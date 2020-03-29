@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node ./server/index.js",
+    "dev": "nodemon  --exec  babel-node ./server/index.js",
     "start": "npm run build && cross-env NODE_ENV=production npm run dev",
     "build": "next build ./client"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,7 @@
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "@material-ui/core": "^4.9.8",
+    "@material-ui/icons": "^4.9.1",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-link-http": "^1.5.16",
@@ -56,10 +62,12 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "redis": "^3.0.2",
+    "styled-components": "^5.0.1",
     "uuid": "^3.3.3",
     "with-context": "0.0.3"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "cors": "^2.8.5",
     "cross-env": "^6.0.3",
     "eslint": "^6.7.2",

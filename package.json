@@ -48,6 +48,7 @@
     "graphql-tag": "^2.10.3",
     "mongoose": "^5.9.3",
     "next": "^9.2.2",
+    "next-with-apollo": "^5.0.0",
     "node-fetch": "^2.6.0",
     "passport": "^0.4.1",
     "passport-session": "^1.0.2",
@@ -73,6 +74,8 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "eslint-plugin-standard": "^4.0.1",
     "nodemon": "^2.0.1",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "webpack-merge": "^4.2.2",
+    "wepack": "0.0.1"
   }
 }

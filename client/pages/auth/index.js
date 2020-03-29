@@ -1,19 +1,7 @@
-import ApolloClient from "apollo-client";
-import fetch from "node-fetch";
-import { createHttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import withApollo from "enhancers/withApollo";
+import AUTH from "graphQL/auth";
 import { useState } from "react";
-import { useMutation, ApolloProvider } from "@apollo/react-hooks";
-
-import AUTH from "../graphql/auth";
-
-const client = new ApolloClient({
-  link: createHttpLink({
-    uri: "/graphql",
-    fetch: fetch
-  }),
-  cache: new InMemoryCache()
-});
+import { useMutation } from "@apollo/react-hooks";
 
 const Form = () => {
   const [data, setData] = useState({ username: "", password: "", error: "" });
@@ -64,11 +52,7 @@ const Form = () => {
 };
 
 const Index = () => {
-  return (
-    <ApolloProvider client={client}>
-      <Form />
-    </ApolloProvider>
-  );
+  return <Form />;
 };
 
-export default Index;
+export default withApollo(Index);

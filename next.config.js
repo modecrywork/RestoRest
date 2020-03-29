@@ -1,4 +1,8 @@
-const exportPathMap = function() {
+const merge = require("webpack-merge");
+
+const cfg = require("./webpack.config");
+
+const exportPathMap = ()=> {
   return {
     "/": { page: "/" },
     "/auth": { page: "/auth" }
@@ -6,5 +10,8 @@ const exportPathMap = function() {
 };
 
 module.exports = {
-  exportPathMap
+  exportPathMap,
+  webpack: (config, options) => {
+    return merge(config, cfg);
+  }
 };

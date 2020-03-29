@@ -51,9 +51,21 @@ ssrApp
       if (req?.isAuthenticated()) res.redirect("/");
       next();
     });
+
+    app.get("/logout", (req, res, next) => {
+      req.session.destroy(err => {
+        if (err) {
+          console.log(err);
+        }
+      });
+      res.redirect("/auth");
+      next();
+    });
+
     app.all(["/"], authMiddleware);
 
     app.get("*", handle);
+
     app.listen(APP_CONFIG.serverPort, err => {
       if (err) throw err;
       console.log(

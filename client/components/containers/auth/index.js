@@ -1,3 +1,4 @@
+import Router from 'next/router';
 // styles
 import AUTH_USER from "graphQL/auth";
 
@@ -11,9 +12,21 @@ import { useState } from "react";
 import AuthForm from "./AuthForm";
 
 const AuthContainer = () => {
+
+  const [handleAuth,{data:userData}] = useMutation(AUTH_USER);
+  const authUser = async ({username,password},callback)=>{
+      try{
+          await handleAuth({ variables: { username, password } });
+          Router.push("/")
+      }catch (e) {
+          console.log(e);
+          callback();
+      }
+  }
+
   return (
     <FormContainer>
-      <AuthForm />
+      <AuthForm authUser={authUser}/>
     </FormContainer>
   );
 };

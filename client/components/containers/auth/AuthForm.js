@@ -13,62 +13,82 @@ import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import FormHelperText from "@material-ui/core/FormHelperText";
 //  icons
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
-const AuthForm = () => {
+const AuthForm = ({ authUser }) => {
   const [data, setData] = useState({
     username: "",
     password: "",
-    error: "",
+    error: false,
     showPassword: false
   });
   const changeState = (name, value) => {
-    setData({ ...data, [name]: value });
+    setData({ ...data, error: false, [name]: value });
   };
 
   // handlers
-  const handleChangedata = name => e => {
+  const handleChangeData = name => e => {
     changeState(name, e.target.value);
-  };
-  const handleChangeError = error => {
-    changeState("error", error);
   };
   const handleClickShowPassword = () => {
     changeState("showPassword", !data.showPassword);
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    authUser(data, () => {
+      changeState("error", true);
+    });
+  };
+
   return (
-    <FormCard>
-      <LogotypeContainer>
-        <LogotypeIcon />
-      </LogotypeContainer>
-      <StyledCardContent>
-        <StyledTextField label="Логин" />
-        <StyledFormControl>
-          <InputLabel>Пароль</InputLabel>
-          <Input
-            type={data.showPassword ? "text" : "password"}
-            value={data.password}
-            onChange={handleChangedata("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                >
-                  {data.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
+    <form onSubmit={handleLogin}>
+      <FormCard>
+        <LogotypeContainer>
+          <LogotypeIcon />
+        </LogotypeContainer>
+        <StyledCardContent>
+          <StyledTextField
+            label="Логин"
+            onChange={handleChangeData("username")}
+            error={data.error}
           />
-        </StyledFormControl>
-      </StyledCardContent>
-      <StyledCardActions>
-        <StyledButton variant="contained">Войти</StyledButton>
-      </StyledCardActions>
-    </FormCard>
+          <StyledFormControl>
+            <InputLabel>Пароль</InputLabel>
+            <Input
+              type={data.showPassword ? "text" : "password"}
+              value={data.password}
+              onChange={handleChangeData("password")}
+              error={data.error}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {data.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </StyledFormControl>
+          <StyledFormHelperText error={data.error}>
+            {" "}
+            {data.error
+              ? "Неккоректные данные"
+              : "Укажите логин и пароль для входа в систему"}
+          </StyledFormHelperText>
+        </StyledCardContent>
+        <StyledCardActions>
+          <StyledButton type="submit" variant="contained">
+            Войти
+          </StyledButton>
+        </StyledCardActions>
+      </FormCard>
+    </form>
   );
 };
 
@@ -103,8 +123,13 @@ const StyledCardActions = styled(CardActions)`
   margin-top: 30px;
   justify-content: center;
 `;
+
 const StyledButton = styled(Button)`
   width: 30%;
+`;
+
+const StyledFormHelperText = styled(FormHelperText)`
+  padding-top: 5px;
 `;
 
 export default AuthForm;

@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const AUTH = gql`
+const AUTH_USER = gql`
   mutation($username: String!, $password: String!) {
     signIn(username: $username, password: $password) {
       user {
@@ -10,4 +10,4 @@ const AUTH = gql`
   }
 `;
 
-export default AUTH;
+export default AUTH_USER;

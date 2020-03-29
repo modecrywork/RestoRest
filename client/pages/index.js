@@ -1,7 +1,14 @@
-import { useState } from "react";
+// containers
+import MainContainer from "components/containers/Main";
+// layouts
+import MainLayout from "components/layouts/MainLayout";
 
-const Index = () => {
-  return <p>Hello world</p>;
-};
+import React from "react";
+
+const Index = () => (
+  <MainLayout>
+    <MainContainer />
+  </MainLayout>
+);
 
 export default Index;

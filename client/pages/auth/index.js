@@ -1,11 +1,11 @@
 import withApollo from "enhancers/withApollo";
-import AUTH from "graphQL/auth";
+import AUTH_USER from "graphQL/auth";
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
 const Form = () => {
   const [data, setData] = useState({ username: "", password: "", error: "" });
-  const [handleAuth, { data: userData }] = useMutation(AUTH);
+  const [handleAuth, { data: userData }] = useMutation(AUTH_USER);
 
   const handleChangedata = name => e => {
     setData({ ...data, [name]: e.target.value });

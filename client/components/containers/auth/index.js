@@ -5,7 +5,8 @@ import AUTH_USER from "graphQL/auth";
 import styled from "styled-components";
 // graphQL
 import { useMutation } from "@apollo/react-hooks";
-
+// utils
+import debounce from "utils/debounce";
 // components
 import { useState } from "react";
 
@@ -14,13 +15,19 @@ import AuthForm from "./AuthForm";
 const AuthContainer = () => {
 
   const [handleAuth,{data:userData}] = useMutation(AUTH_USER);
-  const authUser = async ({username,password},callback)=>{
+  const authUser = async ({username,password},loaderCallback,errorCallback)=>{
       try{
           await handleAuth({ variables: { username, password } });
-          Router.push("/")
+          debounce(()=>{
+              loaderCallback();
+              Router.push("/")
+          },600)
       }catch (e) {
           console.log(e);
-          callback();
+          errorCallback();
+          debounce(()=>{
+              loaderCallback();
+          },600)
       }
   }
 

@@ -1,4 +1,5 @@
 import LogotypeIcon from "icons/Logotype";
+import Loader from "components/Loader";
 
 import styled from "styled-components";
 import { useState } from "react";
@@ -19,6 +20,18 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const AuthForm = ({ authUser }) => {
+  /* loader state */
+  const [loader, setLoader] = useState({ display: "none", opacity: 0 });
+
+  /* Loader methods */
+  const showLoader = () => {
+    setLoader({ display: "flex", opacity: 0.8 });
+  };
+  const hideLoader = () => {
+    setLoader({ ...loader, opacity: 0 });
+  };
+
+  /* data state */
   const [data, setData] = useState({
     username: "",
     password: "",
@@ -37,9 +50,10 @@ const AuthForm = ({ authUser }) => {
     changeState("showPassword", !data.showPassword);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = e => {
     e.preventDefault();
-    authUser(data, () => {
+    showLoader();
+    authUser(data, hideLoader, () => {
       changeState("error", true);
     });
   };
@@ -87,6 +101,11 @@ const AuthForm = ({ authUser }) => {
             Войти
           </StyledButton>
         </StyledCardActions>
+        <Loader
+          display={loader.display}
+          opacity={loader.opacity}
+          position="absolute"
+        />
       </FormCard>
     </form>
   );
@@ -96,6 +115,7 @@ const AuthForm = ({ authUser }) => {
 const FormCard = styled(Card)`
   max-width: 400px;
   padding: 10px;
+  position: relative;
 `;
 
 const LogotypeContainer = styled.div`
